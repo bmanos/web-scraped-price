@@ -8,8 +8,6 @@
 # Import libraries
 import requests
 from bs4 import BeautifulSoup
-import uuid
-import datetime
 import time
 
 from email.mime.text import MIMEText
