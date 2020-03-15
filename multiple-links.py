@@ -5,7 +5,7 @@
 # Last modified : March 15, 2020
 # Link  : http://repairmypc.net
 
-# Import libraries
+# Import librairies
 import requests
 from bs4 import BeautifulSoup
 import time
@@ -21,7 +21,7 @@ def sendEmail():
     message['From'] = fromrecipient
     message['To'] = torecipient
     message['Subject'] = 'New price for item ' + mypricestitle
-    body = 'The new price are : ' + mypricesprice +'\nThe previous prices was : ' + content_file +'\nThe product link  is : ' + myurls
+    body = 'The new price is : ' + mypricesprice +'\nThe previous prices was : ' + content_file +'\nThe product link  is : ' + myurls
     message.attach(MIMEText(body, 'plain'))
 
     import smtplib
@@ -40,8 +40,8 @@ mylinks = ['https://eshop.mymarket.gr/proino-rofimata-kafes/kafes/espresso-capuc
            'https://eshop.mymarket.gr/proino-rofimata-kafes/eidi-epaleipsis/pralina/merenda-230gr',\
            'https://eshop.mymarket.gr/oikiaki-frontida-chartika/katharistika-spitiou/genikis-chrisis/dettol-apolymantiko-spray-epifaneion']
 
+# Get the links to be scraped
 for myurls in mylinks:
-    # Get the links to be scraped
     r = requests.get(myurls)
     soup = BeautifulSoup(r.text, 'html.parser')
     refresh = soup.find_all('meta', attrs={'http-equiv': 'Pragma', 'content': 'no-cache'})
@@ -65,7 +65,7 @@ for myurls in mylinks:
     #filepath = '/home/pi/scripts/myprices-'+ mypricestitle + '.txt'
     filepath = '/Users/manos/Documents/Projects/python-projects/myprices-'+ mypricestitle + '.txt'
 
-    # Open files
+    # Open file
     with open(filepath, 'r') as f:
         # Get all the contents of the file
         content_file = f.read()
@@ -73,7 +73,7 @@ for myurls in mylinks:
         # Remove any whitespace at the end, e.g. a newline
         content_file = content_file.strip()
 
-        # Compare price
+        # Compare prices
         user_input = mypricesprice
         
     if user_input == content_file:
