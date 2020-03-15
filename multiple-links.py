@@ -57,15 +57,24 @@ for myurls in mylinks:
     mypricestitle = soup_myprices.find(class_='page-title').get_text()
     print(mypricestitle)
 
+    # Extract text of Product code
+    mypricescode = soup_myprices.find(class_='facebook-pixel-sku').get_text()
+    print(mypricescode)
+
     # Extract text of price
     mypricesprice = soup_myprices.find(class_='price final-price').get_text()
     print(mypricesprice)
     print(myurls)
 
     #filepath = '/home/pi/scripts/myprices-'+ mypricestitle + '.txt'
-    filepath = '/Users/manos/Documents/Projects/python-projects/myprices-'+ mypricestitle + '.txt'
+    filepath = '/Users/manos/Documents/Projects/python-projects/myprices-'+ mypricescode + '.txt'
 
-    # Open file
+    # Check if file exist and if it doesn't create the file
+    #file = open('/home/pi/scripts/myprices-'+ mypricestitle + '.txt','a')
+    file = open('/Users/manos/Documents/Projects/python-projects/myprices-'+ mypricescode + '.txt','a')
+    file.close()
+
+    # Open files
     with open(filepath, 'r') as f:
         # Get all the contents of the file
         content_file = f.read()
@@ -73,7 +82,7 @@ for myurls in mylinks:
         # Remove any whitespace at the end
         content_file = content_file.strip()
 
-        # Compare prices
+        # Compare with the price
         user_input = mypricesprice
         
     if user_input == content_file:
@@ -84,6 +93,6 @@ for myurls in mylinks:
 
     # Write the price to the file so you could compare it next time
     #file = open('/home/pi/scripts/myprices-'+ mypricestitle + '.txt','w')
-    file = open('/Users/manos/Documents/Projects/python-projects/myprices-'+ mypricestitle + '.txt','w')
+    file = open('/Users/manos/Documents/Projects/python-projects/myprices-'+ mypricescode + '.txt','w')
     file.write(mypricesprice)
     file.close()
