@@ -1,5 +1,5 @@
-# Web scraping mymarket price to
-# get email alert aboutt price change
+# Web scraping mymarket prices to
+# get email alerts about price changes
 # Author        : Bairaktaris Emmanuel
 # Date          : December 6, 2019
 # Last modified : March 15, 2020
@@ -38,14 +38,10 @@ def sendEmail():
     server.sendmail(message['From'], [torecipient, bcc], text)
     return
 
-# Get yesterday date
-today = datetime.date.today()
-mydate = today - datetime.timedelta(days = 1)
-
 mylinks = ['https://eshop.mymarket.gr/proino-rofimata-kafes/kafes/espresso-capuccino/lavazza-kafes-espresso-oro-250gr', 'https://eshop.mymarket.gr/proino-rofimata-kafes/eidi-epaleipsis/pralina/merenda-230gr','https://eshop.mymarket.gr/oikiaki-frontida-chartika/katharistika-spitiou/genikis-chrisis/dettol-apolymantiko-spray-epifaneion']
 
 for myurls in mylinks:
-    # Get the links to be scraped Coffee
+    # Get the links to be scraped
     r = requests.get(myurls)
     soup = BeautifulSoup(r.text, 'html.parser')
     refresh = soup.find_all('meta', attrs={'http-equiv': 'Pragma', 'content': 'no-cache'})
@@ -57,7 +53,7 @@ for myurls in mylinks:
 
     soup_myprices = BeautifulSoup(myprices.text, 'html.parser')
 
-    # Extraxt text of Product titlt
+    # Extraxt text of Product title
     mypricestitle = soup_myprices.find(class_='page-title').get_text()
     print(mypricestitle)
 
@@ -77,7 +73,7 @@ for myurls in mylinks:
         # Remove any whitespace at the end, e.g. a newline
         content_file = content_file.strip()
 
-        # Compare with the price get by the function
+        # Compare price
         user_input = mypricesprice
         
     if user_input == content_file:
