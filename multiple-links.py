@@ -70,7 +70,7 @@ for myurls in mylinks:
         # Get all the contents of the file
         content_file = f.read()
 
-        # Remove any whitespace at the end, e.g. a newline
+        # Remove any whitespace at the end
         content_file = content_file.strip()
 
         # Compare prices
