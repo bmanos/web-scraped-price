@@ -53,11 +53,11 @@ for myurls in mylinks:
 
     soup_myprices = BeautifulSoup(myprices.text, 'html.parser')
 
-    # Extraxt text of Product title
+    # Extract text of Product title
     mypricestitle = soup_myprices.find(class_='page-title').get_text()
     print(mypricestitle)
 
-    # Extraxt text of price
+    # Extract text of price
     mypricesprice = soup_myprices.find(class_='price final-price').get_text()
     print(mypricesprice)
     print(myurls)
