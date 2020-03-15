@@ -55,7 +55,7 @@ for myurls in mylinks:
     mypricestitle = soup_myprices.find(class_='page-title').get_text()
     print(mypricestitle)
 
-    # Extraxt text of currency price
+    # Extraxt text of price
     mypricesprice = soup_myprices.find(class_='price final-price').get_text()
     print(mypricesprice)
     print(myurls)
