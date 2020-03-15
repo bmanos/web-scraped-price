@@ -36,7 +36,9 @@ def sendEmail():
     server.sendmail(message['From'], [torecipient, bcc], text)
     return
 
-mylinks = ['https://eshop.mymarket.gr/proino-rofimata-kafes/kafes/espresso-capuccino/lavazza-kafes-espresso-oro-250gr', 'https://eshop.mymarket.gr/proino-rofimata-kafes/eidi-epaleipsis/pralina/merenda-230gr','https://eshop.mymarket.gr/oikiaki-frontida-chartika/katharistika-spitiou/genikis-chrisis/dettol-apolymantiko-spray-epifaneion']
+mylinks = ['https://eshop.mymarket.gr/proino-rofimata-kafes/kafes/espresso-capuccino/lavazza-kafes-espresso-oro-250gr',\
+           'https://eshop.mymarket.gr/proino-rofimata-kafes/eidi-epaleipsis/pralina/merenda-230gr',\
+           'https://eshop.mymarket.gr/oikiaki-frontida-chartika/katharistika-spitiou/genikis-chrisis/dettol-apolymantiko-spray-epifaneion']
 
 for myurls in mylinks:
     # Get the links to be scraped
