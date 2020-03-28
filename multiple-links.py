@@ -2,7 +2,7 @@
 # get email alerts about price changes
 # Author        : Bairaktaris Emmanuel
 # Date          : December 6, 2019
-# Last modified : March 15, 2020
+# Last modified : March 28, 2020
 # Link  : http://repairmypc.net
 
 # Import librairies
@@ -42,57 +42,62 @@ mylinks = ['https://eshop.mymarket.gr/proino-rofimata-kafes/kafes/espresso-capuc
 
 # Get the links to be scraped
 for myurls in mylinks:
-    r = requests.get(myurls)
-    soup = BeautifulSoup(r.text, 'html.parser')
-    refresh = soup.find_all('meta', attrs={'http-equiv': 'Pragma', 'content': 'no-cache'})
-    refresh = soup.find_all('meta', attrs={'http-equiv': 'Expires', 'content': '-1'})
-    refresh = soup.find_all('meta', attrs={'http-equiv': 'cache-control', 'content': 'NO-CACHE'})
-    time.sleep(10)
+    try:
+        r = requests.get(myurls)
+        soup = BeautifulSoup(r.text, 'html.parser')
+        refresh = soup.find_all('meta', attrs={'http-equiv': 'Pragma', 'content': 'no-cache'})
+        refresh = soup.find_all('meta', attrs={'http-equiv': 'Expires', 'content': '-1'})
+        refresh = soup.find_all('meta', attrs={'http-equiv': 'cache-control', 'content': 'NO-CACHE'})
+        time.sleep(10)
 
-    myprices = requests.get(myurls)
+        myprices = requests.get(myurls)
 
-    soup_myprices = BeautifulSoup(myprices.text, 'html.parser')
+        soup_myprices = BeautifulSoup(myprices.text, 'html.parser')
 
-    # Extract text of Product title
-    mypricestitle = soup_myprices.find(class_='page-title').get_text()
-    print(mypricestitle)
+        # Extract text of Product title
+        mypricestitle = soup_myprices.find(class_='page-title').get_text()
+        print(mypricestitle)
 
-    # Extract text of Product code
-    mypricescode = soup_myprices.find(class_='facebook-pixel-sku').get_text()
-    print(mypricescode)
+        # Extract text of Product code
+        mypricescode = soup_myprices.find(class_='facebook-pixel-sku').get_text()
+        print(mypricescode)
 
-    # Extract text of price
-    mypricesprice = soup_myprices.find(class_='price final-price').get_text()
-    print(mypricesprice)
-    print(myurls)
+        # Extract text of price
+        mypricesprice = soup_myprices.find(class_='price final-price').get_text()
+        print(mypricesprice)
+        print(myurls)
 
-    #filepath = '/home/pi/scripts/myprices-'+ mypricestitle + '.txt'
-    filepath = '/Users/manos/Documents/Projects/python-projects/myprices-'+ mypricescode + '.txt'
+        #filepath = '/home/pi/scripts/myprices-'+ mypricestitle + '.txt'
+        filepath = '/Users/manos/Documents/Projects/python-projects/myprices-'+ mypricescode + '.txt'
 
-    # Check if file exist and if it doesn't create the file
-    #file = open('/home/pi/scripts/myprices-'+ mypricestitle + '.txt','a')
-    file = open('/Users/manos/Documents/Projects/python-projects/myprices-'+ mypricescode + '.txt','a')
-    file.close()
+        # Check if file exist and if it doesn't create the file
+        #file = open('/home/pi/scripts/myprices-'+ mypricestitle + '.txt','a')
+        file = open('/Users/manos/Documents/Projects/python-projects/myprices-'+ mypricescode + '.txt','a')
+        file.close()
 
-    # Open files
-    with open(filepath, 'r') as f:
-        # Get all the contents of the file
-        content_file = f.read()
+        # Open files
+        with open(filepath, 'r') as f:
+            # Get all the contents of the file
+            content_file = f.read()
 
-        # Remove any whitespace at the end
-        content_file = content_file.strip()
+            # Remove any whitespace at the end
+            content_file = content_file.strip()
 
-        # Compare with the price
-        user_input = mypricesprice
-        
-    if user_input == content_file:
-        print('No price changed')
-    else:
-        print('Price changed. Sending email...')
-        sendEmail()
+            # Compare with the price
+            user_input = mypricesprice
+            
+        if user_input == content_file:
+            print('No price changed')
+        else:
+            print('Price changed. Sending email...')
+            sendEmail()
 
-    # Write the price to the file so you could compare it next time
-    #file = open('/home/pi/scripts/myprices-'+ mypricestitle + '.txt','w')
-    file = open('/Users/manos/Documents/Projects/python-projects/myprices-'+ mypricescode + '.txt','w')
-    file.write(mypricesprice)
-    file.close()
+        # Write the price to the file so you could compare it next time
+        #file = open('/home/pi/scripts/myprices-'+ mypricestitle + '.txt','w')
+        file = open('/Users/manos/Documents/Projects/python-projects/myprices-'+ mypricescode + '.txt','w')
+        file.write(mypricesprice)
+        file.close()
+
+    except:
+        pass
+
